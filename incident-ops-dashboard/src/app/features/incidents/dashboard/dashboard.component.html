@@ -1,0 +1,132 @@
+<!-- Demo: compact dashboard template using control-flow sugar. -->
+<!-- Enterprise: extract modal behavior and use ARIA-friendly overlays. -->
+<app-loader />
+
+<section class="dashboard">
+
+  <header class="hero">
+
+    <div class="hero-left">
+
+      <div class="hero-icon">
+        ⚡
+      </div>
+
+      <div>
+
+        <span class="eyebrow">
+          {{ copy.eyebrow }}
+        </span>
+
+        <h1>
+          {{ copy.title }}
+        </h1>
+
+        <p>
+          {{ copy.subtitle }}
+        </p>
+
+      </div>
+
+    </div>
+
+    <button
+  class="refresh-btn"
+  type="button"
+  (click)="refresh()"
+>
+  <span class="refresh-icon">
+    ↻
+  </span>
+
+  <span>
+    {{ copy.refresh }}
+  </span>
+</button>
+
+  </header>
+
+  <section class="toolbar">
+
+    <app-filters
+      (searchChanged)="store.setSearch($event)"
+      (statusChanged)="store.setStatusFilter($event)"
+      (severityChanged)="store.setSeverityFilter($event)"
+      (serviceChanged)="store.setServiceFilter($event)"
+    />
+
+  </section>
+
+  @if(store.loading()) {
+
+  <section class="state-card">
+    {{ copy.loadingMessage }}
+  </section>
+
+  }
+
+  @else if(store.error()) {
+
+  <section class="state-card error">
+
+    {{ store.error() }}
+
+  </section>
+
+  }
+
+  @else if(
+    !store.filteredIncidents().length
+  ) {
+
+  <section class="state-card">
+
+    {{ copy.emptyState }}
+
+  </section>
+
+  }
+
+  @else {
+
+  <app-incident-list
+    [incidents]="
+      store.filteredIncidents()
+    "
+    (selectIncident)="
+      openIncident($event)
+    "
+  />
+
+  }
+
+  @if(store.selectedIncident()) {
+
+<div class="modal-backdrop" (click)="closeModal()">
+    <div
+      class="modal-container"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Incident details"
+      (click)="$event.stopPropagation()"
+    >
+
+      <app-incident-details
+        [incident]="
+          store.selectedIncident()!
+        "
+        (statusChanged)="
+          updateStatus($event)
+        "
+        (closeRequested)="
+          closeModal()
+        "
+      />
+
+    </div>
+
+  </div>
+
+  }
+
+</section>

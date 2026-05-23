@@ -1,0 +1,97 @@
+<section class="modal-card">
+  <header class="modal-header">
+    <div>
+      <div class="badge-row">
+        <span class="service">
+          {{ incident.service }}
+        </span>
+
+        <span class="severity">
+          {{ incident.severity }}
+        </span>
+      </div>
+
+      <h2>
+        {{ incident.title }}
+      </h2>
+
+      <p class="description">
+        {{ incident.description }}
+      </p>
+    </div>
+
+    <button
+      class="close-btn"
+      type="button"
+      aria-label="Close incident details"
+      (click)="closeRequested.emit()"
+    >
+      ✕
+    </button>
+  </header>
+
+  <section class="meta-grid">
+    <div class="meta-item">
+      <label>
+        Incident ID
+      </label>
+
+      <span>
+        {{ incident.id }}
+      </span>
+    </div>
+
+    <div class="meta-item">
+      <label>
+        Created
+      </label>
+
+      <span>
+        {{
+          incident.createdAt
+            | date: 'medium'
+        }}
+      </span>
+    </div>
+
+    <div class="meta-item">
+      <label>
+        Current Status
+      </label>
+
+      <select
+        [ngModel]="selectedStatus"
+        (ngModelChange)="selectedStatus = $event"
+      >
+        @for (
+          status of statuses;
+          track status
+        ) {
+
+        <option [value]="status">
+          {{ status }}
+        </option>
+
+        }
+      </select>
+    </div>
+  </section>
+
+  <footer class="modal-footer">
+    <button
+      class="secondary-btn"
+      type="button"
+      (click)="closeRequested.emit()"
+    >
+      Close
+    </button>
+
+    <button
+      class="primary-btn"
+      type="button"
+      (click)="saveChanges()"
+    >
+      Save Changes
+    </button>
+  </footer>
+</section>

@@ -1,0 +1,61 @@
+<!-- Demo: simple incident list template with track-by id. -->
+<!-- Enterprise: keep logic out of the template and derive data in the store/facade. -->
+<section class="incident-grid">
+  @for (
+    incident of incidents;
+    track incident.id
+  ) {
+
+  <button
+    class="incident-card"
+    type="button"
+    (click)="selectIncident.emit(incident)"
+  >
+    <div class="card-top">
+      <span
+        class="severity"
+        [class.low]="
+          incident.severity === 'LOW'
+        "
+        [class.medium]="
+          incident.severity === 'MEDIUM'
+        "
+        [class.high]="
+          incident.severity === 'HIGH'
+        "
+        [class.critical]="
+          incident.severity ===
+          'CRITICAL'
+        "
+      >
+        {{ incident.severity }}
+      </span>
+
+      <span class="service">
+        {{ incident.service }}
+      </span>
+    </div>
+
+    <h3>
+      {{ incident.title }}
+    </h3>
+
+    <p class="description">
+      {{ incident.description }}
+    </p>
+
+    <footer class="card-footer">
+      <span>
+        {{ incident.id }}
+      </span>
+
+      <span>
+        {{ incident.createdAt
+          | date:'short'
+        }}
+      </span>
+    </footer>
+  </button>
+
+  }
+</section>

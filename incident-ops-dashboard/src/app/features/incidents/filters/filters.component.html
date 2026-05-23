@@ -1,0 +1,71 @@
+<form
+  class="filters"
+  [formGroup]="form"
+>
+  <input
+    type="search"
+    formControlName="search"
+    placeholder="Search incidents..."
+    aria-label="Search incidents"
+  />
+
+  <select
+    formControlName="status"
+    aria-label="Status filter"
+  >
+    <option value="">
+      All Statuses
+    </option>
+
+    @for (
+      status of statuses;
+      track status
+    ) {
+
+    <option [value]="status">
+      {{ status }}
+    </option>
+
+    }
+  </select>
+
+  <select
+    formControlName="severity"
+    aria-label="Severity filter"
+  >
+    <option value="">
+      All Severities
+    </option>
+
+    @for (
+      severity of severities;
+      track severity
+    ) {
+
+    <option [value]="severity">
+      {{ severity }}
+    </option>
+
+    }
+  </select>
+
+  <select
+    formControlName="service"
+    aria-label="Service filter"
+  >
+    <option value="">
+      All Services
+    </option>
+
+    @for (
+      service of services;
+      track service
+    ) {
+
+    <option [value]="service">
+      {{ service }}
+    </option>
+
+    }
+  </select>
+</form>

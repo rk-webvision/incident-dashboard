@@ -1,0 +1,45 @@
+:host {
+  display: block;
+}
+
+/*
+ * Filters remain lightweight intentionally.
+ *
+ * The goal is fast scanning and quick
+ * refinement, not complex search tooling.
+ */
+
+.filters {
+  display: grid;
+  gap: 1rem;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font: inherit;
+  background: #ffffff;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/*
+ * Desktop gets a denser toolbar layout.
+ * Mobile stays comfortably stacked.
+ */
+
+@media (min-width: 768px) {
+  .filters {
+    grid-template-columns:
+      2fr
+      repeat(3, 1fr);
+  }
+}

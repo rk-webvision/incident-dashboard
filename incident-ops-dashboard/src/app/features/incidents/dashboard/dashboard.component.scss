@@ -1,0 +1,341 @@
+:host {
+  display: block;
+}
+
+.dashboard {
+  min-height: 100vh;
+  padding: 2rem;
+
+  background: #f8fafc;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 2rem;
+
+  margin-bottom: 2rem;
+
+  padding: 2rem;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 32px;
+
+  box-shadow:
+    0 12px 40px
+    rgba(
+      15,
+      23,
+      42,
+      0.04
+    );
+}
+
+.hero-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.hero-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 72px;
+  height: 72px;
+
+  border-radius: 24px;
+
+  font-size: 2rem;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0f172a,
+      #334155
+    );
+
+  color: #ffffff;
+}
+
+.eyebrow {
+  display: inline-block;
+
+  margin-bottom: 0.65rem;
+
+  color: #64748b;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+}
+
+.hero h1 {
+  margin: 0;
+
+  font-size: 2.4rem;
+  font-weight: 800;
+
+  line-height: 1.05;
+
+  color: #0f172a;
+}
+
+.hero p {
+  margin-top: 0.85rem;
+
+  max-width: 620px;
+
+  color: #64748b;
+
+  line-height: 1.7;
+}
+
+.sync-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  padding:
+    0.85rem 1rem;
+
+  border-radius: 999px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+
+  color: #475569;
+
+  font-size: 0.9rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+
+  border-radius: 999px;
+
+  background: #16a34a;
+
+  box-shadow:
+    0 0 12px
+    rgba(
+      22,
+      163,
+      74,
+      0.5
+    );
+}
+
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-left {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+}
+
+.sync {
+  color: #94a3b8;
+}
+
+.kpi-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(220px, 1fr)
+    );
+
+  gap: 1rem;
+
+  margin-bottom: 2rem;
+}
+
+.kpi-card {
+  padding: 1.5rem;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+
+  box-shadow:
+    0 6px 24px
+    rgba(
+      15,
+      23,
+      42,
+      0.04
+    );
+}
+
+.kpi-card span {
+  color: #64748b;
+}
+
+.kpi-card h2 {
+  margin: 0.75rem 0 0;
+
+  font-size: 2rem;
+
+  color: #0f172a;
+}
+
+.toolbar {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 10;
+
+  margin-bottom: 2rem;
+
+  padding: 1rem;
+
+  background: rgba(
+    248,
+    250,
+    252,
+    0.92
+  );
+
+  backdrop-filter: blur(10px);
+}
+
+.state-card {
+  padding: 1rem;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+}
+
+.modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(
+    15,
+    23,
+    42,
+    0.45
+  );
+
+  padding: 1rem;
+
+  z-index: 1000;
+}
+
+.modal-container {
+  width: 100%;
+  max-width: 760px;
+}
+
+.refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  padding: 0.9rem 1.15rem;
+
+  border: 1px solid #dbe3ee;
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  color: #0f172a;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 140ms ease,
+    background 140ms ease,
+    box-shadow 140ms ease,
+    border-color 140ms ease;
+
+  box-shadow:
+    0 6px 18px
+    rgba(
+      15,
+      23,
+      42,
+      0.04
+    );
+}
+
+.refresh-btn:hover {
+  transform: translateY(-1px);
+
+  background: #f8fafc;
+
+  border-color: #cbd5e1;
+
+  box-shadow:
+    0 12px 28px
+    rgba(
+      15,
+      23,
+      42,
+      0.08
+    );
+}
+
+.refresh-btn:active {
+  transform: translateY(0);
+}
+
+.refresh-btn:focus-visible {
+  outline: none;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(
+      59,
+      130,
+      246,
+      0.18
+    );
+}
+
+.refresh-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 30px;
+  height: 30px;
+
+  border-radius: 10px;
+
+  background: #f1f5f9;
+
+  color: #334155;
+
+  font-size: 1rem;
+}
