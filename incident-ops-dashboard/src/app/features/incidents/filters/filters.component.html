@@ -1,71 +1,71 @@
+<!-- filters.component.html -->
+
 <form
   class="filters"
   [formGroup]="form"
 >
+
   <input
     type="search"
     formControlName="search"
     placeholder="Search incidents..."
-    aria-label="Search incidents"
   />
 
-  <select
-    formControlName="status"
-    aria-label="Status filter"
-  >
+  <select formControlName="status">
+
     <option value="">
-      All Statuses
+      Status
     </option>
 
-    @for (
+    @for(
       status of statuses;
       track status
-    ) {
+    ){
 
     <option [value]="status">
       {{ status }}
     </option>
 
     }
+
   </select>
 
-  <select
-    formControlName="severity"
-    aria-label="Severity filter"
-  >
+  <select formControlName="severity">
+
     <option value="">
-      All Severities
+      Severity
     </option>
 
-    @for (
+    @for(
       severity of severities;
       track severity
-    ) {
+    ){
 
     <option [value]="severity">
       {{ severity }}
     </option>
 
     }
+
   </select>
 
-  <select
-    formControlName="service"
-    aria-label="Service filter"
-  >
+  <select formControlName="service">
+
     <option value="">
-      All Services
+      Service
     </option>
 
-    @for (
+    @for(
       service of services;
       track service
-    ) {
+    ){
 
     <option [value]="service">
       {{ service }}
     </option>
 
     }
+
   </select>
+
 </form>

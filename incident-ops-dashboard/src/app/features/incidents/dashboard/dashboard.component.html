@@ -1,22 +1,18 @@
-<!-- Demo: compact dashboard template using control-flow sugar. -->
-<!-- Enterprise: extract modal behavior and use ARIA-friendly overlays. -->
+<!-- dashboard.component.html -->
+
 <app-loader />
 
 <section class="dashboard">
 
   <header class="hero">
 
-    <div class="hero-left">
+    <div class="hero-content">
 
-      <div class="hero-icon">
-        ⚡
+      <div class="hero-badge">
+        INCIDENT OPS
       </div>
 
       <div>
-
-        <span class="eyebrow">
-          {{ copy.eyebrow }}
-        </span>
 
         <h1>
           {{ copy.title }}
@@ -31,84 +27,198 @@
     </div>
 
     <button
-  class="refresh-btn"
-  type="button"
-  (click)="refresh()"
->
-  <span class="refresh-icon">
-    ↻
-  </span>
-
-  <span>
-    {{ copy.refresh }}
-  </span>
-</button>
+      class="refresh-btn"
+      type="button"
+      (click)="refresh()"
+    >
+      ↻ {{ copy.refresh }}
+    </button>
 
   </header>
+
+ <section class="kpi-row">
+
+  <article class="kpi-card">
+
+    <div class="kpi-header">
+
+      <span class="kpi-label">
+        Open
+      </span>
+
+      <div class="info-wrapper">
+
+        <span class="info-icon">
+          i
+        </span>
+
+        <div class="tooltip">
+          Currently active incidents that
+          still require investigation or
+          resolution.
+        </div>
+
+      </div>
+
+    </div>
+
+    <strong>
+      {{ store.openCount() }}
+    </strong>
+
+  </article>
+
+  <article class="kpi-card">
+
+    <div class="kpi-header">
+
+      <span class="kpi-label">
+        Critical
+      </span>
+
+      <div class="info-wrapper">
+
+        <span class="info-icon">
+          i
+        </span>
+
+        <div class="tooltip">
+          Highest severity incidents with
+          major business impact.
+        </div>
+
+      </div>
+
+    </div>
+
+    <strong>
+      {{ store.criticalCount() }}
+    </strong>
+
+  </article>
+
+  <article class="kpi-card">
+
+    <div class="kpi-header">
+
+      <span class="kpi-label">
+        Services
+      </span>
+
+      <div class="info-wrapper">
+
+        <span class="info-icon">
+          i
+        </span>
+
+        <div class="tooltip">
+          Unique platform services
+          currently represented in the
+          incident dataset.
+        </div>
+
+      </div>
+
+    </div>
+
+    <strong>
+      {{ store.serviceCount() }}
+    </strong>
+
+  </article>
+
+  <article class="kpi-card">
+
+    <div class="kpi-header">
+
+      <span class="kpi-label">
+        MTTR
+      </span>
+
+      <div class="info-wrapper">
+
+        <span class="info-icon">
+          i
+        </span>
+
+        <div class="tooltip">
+          Mean Time To Resolution —
+          average duration needed to
+          resolve incidents.
+        </div>
+
+      </div>
+
+    </div>
+
+    <strong>
+      {{ store.mttr() }}
+    </strong>
+
+  </article>
+
+</section>
 
   <section class="toolbar">
 
     <app-filters
-      (searchChanged)="store.setSearch($event)"
-      (statusChanged)="store.setStatusFilter($event)"
-      (severityChanged)="store.setSeverityFilter($event)"
-      (serviceChanged)="store.setServiceFilter($event)"
+      (searchChanged)="store.search.set($event)"
+      (statusChanged)="store.statusFilter.set($event)"
+      (severityChanged)="store.severityFilter.set($event)"
+      (serviceChanged)="store.serviceFilter.set($event)"
     />
 
   </section>
 
-  @if(store.loading()) {
+  <section class="content">
 
-  <section class="state-card">
-    {{ copy.loadingMessage }}
+    @if(store.loading()) {
+
+    <section class="state-card">
+
+      {{ copy.loadingMessage }}
+
+    </section>
+
+    }
+
+    @else if(store.error()) {
+
+    <section class="state-card">
+
+      {{ store.error() }}
+
+    </section>
+
+    }
+
+    @else {
+
+    <app-incident-list
+      [incidents]="
+        store.filteredIncidents()
+      "
+      (selectIncident)="
+        openIncident($event)
+      "
+    />
+
+    }
+
   </section>
-
-  }
-
-  @else if(store.error()) {
-
-  <section class="state-card error">
-
-    {{ store.error() }}
-
-  </section>
-
-  }
-
-  @else if(
-    !store.filteredIncidents().length
-  ) {
-
-  <section class="state-card">
-
-    {{ copy.emptyState }}
-
-  </section>
-
-  }
-
-  @else {
-
-  <app-incident-list
-    [incidents]="
-      store.filteredIncidents()
-    "
-    (selectIncident)="
-      openIncident($event)
-    "
-  />
-
-  }
 
   @if(store.selectedIncident()) {
 
-<div class="modal-backdrop" (click)="closeModal()">
+  <div
+    class="modal-backdrop"
+    (click)="closeModal()"
+  >
+
     <div
       class="modal-container"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Incident details"
-      (click)="$event.stopPropagation()"
+      (click)="
+        $event.stopPropagation()
+      "
     >
 
       <app-incident-details
